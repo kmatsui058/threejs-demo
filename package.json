@@ -29,6 +29,7 @@
     "three-addons": "^1.2.0",
     "three-obj-mtl-loader": "^1.0.3",
     "three-orbitcontrols": "^2.102.2",
+    "three-orbitcontrols-ts": "^0.1.2",
     "three-trackballcontrols": "0.0.8",
     "tween": "^0.9.0",
     "vue": "^2.6.10",
