@@ -35,7 +35,7 @@ export default class ClassRoom extends Vue {
   async created () {
     this.createdPromise = new Promise((resolve: (value?:any)=>void, reject: (reason?:any)=>void) => {
       this.loader.load(
-        '/gltf/classroom.glb',
+        '/gltf/Office_chair_scene_edit.glb',
         gltf => {
           console.log('gltf load succeeded')
           console.log(gltf)
@@ -71,7 +71,8 @@ export default class ClassRoom extends Vue {
         return
       }
       this.renderer = new THREE.WebGLRenderer({
-        canvas: this.canvas
+        canvas: this.canvas,
+        antialias: true
       })
       this.renderer.setPixelRatio(1)
       this.renderer.setSize(this.width, this.height)
