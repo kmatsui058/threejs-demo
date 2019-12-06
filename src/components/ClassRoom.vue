@@ -5,21 +5,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Ref } from 'vue-property-decorator'
 import * as THREE from 'three'
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three-orbitcontrols-ts'
 @Component
 export default class ClassRoom extends Vue {
-  createdPromise: Promise<void> | undefined
+  @Ref('canvas') readonly canvas!: HTMLCanvasElement | null
+  createdPromise: Promise<void> | null = null
   loader = new GLTFLoader()
-  gltf: undefined | GLTF
-  canvas: HTMLCanvasElement | undefined
+  gltf: null | GLTF = null
   scene = new THREE.Scene();
-  renderer: THREE.WebGLRenderer | undefined
+  renderer: THREE.WebGLRenderer | null = null
   camera = new THREE.PerspectiveCamera()
   light = new THREE.DirectionalLight(0xFFFFFF)
-  controls: OrbitControls | undefined
+  controls: OrbitControls | null = null
   get width (): number {
     if (this.canvas) {
       return this.canvas.getBoundingClientRect().width
@@ -28,11 +28,13 @@ export default class ClassRoom extends Vue {
   }
   get height (): number {
     if (this.canvas) {
-      return this.canvas.getBoundingClientRect().width
+      return this.canvas.getBoundingClientRect().height
     }
     return 0
   }
   async created () {
+    console.log('created')
+    console.log(this.canvas)
     this.createdPromise = new Promise((resolve: (value?:any)=>void, reject: (reason?:any)=>void) => {
       this.loader.load(
         '/gltf/Office_chair_scene_edit.glb',
@@ -61,12 +63,7 @@ export default class ClassRoom extends Vue {
         console.warn('gltf file not found')
         return
       }
-      const temp = this.$refs.canvas
-      console.log(this.$refs)
-      console.log(temp)
-      if (temp instanceof HTMLCanvasElement) {
-        this.canvas = temp
-      } else {
+      if (!this.canvas) {
         console.warn('canvas not found')
         return
       }
