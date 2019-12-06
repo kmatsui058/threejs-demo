@@ -1,6 +1,6 @@
 <template>
   <div class="classroom">
-    <canvas ref="canvas"></canvas>
+    <canvas :ref="refCanvas"></canvas>
   </div>
 </template>
 
@@ -9,9 +9,13 @@ import { Component, Prop, Vue, Ref } from 'vue-property-decorator'
 import * as THREE from 'three'
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import { OrbitControls } from 'three-orbitcontrols-ts'
+
+const refCanvas = 'canvas'
+
 @Component
 export default class ClassRoom extends Vue {
-  @Ref('canvas') readonly canvas!: HTMLCanvasElement | null
+  @Ref(refCanvas) readonly canvas!: HTMLCanvasElement | undefined
+  refCanvas = refCanvas
   createdPromise: Promise<void> | null = null
   loader = new GLTFLoader()
   gltf: null | GLTF = null
