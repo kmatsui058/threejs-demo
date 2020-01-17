@@ -2,11 +2,15 @@
 precision mediump float;
 #endif
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 
 void main() {
-	vec2 st = gl_FragCoord.xy/iResolution.xy;
-	gl_FragColor = vec4(st.x,st.y,0.0,1.0);
+	vec2 position = gl_FragCoord.xy/iResolution.x;
+	vec2 mouse = iMouse.xy/iResolution.x;
+	float color;
+	if (distance(position, mouse) < 0.1) {
+		color = 1.0;
+	} else {
+		color = 0.0;
+	}
+	gl_FragColor = vec4(color,color,color,1.0);
 }
