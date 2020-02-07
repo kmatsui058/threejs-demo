@@ -1,7 +1,7 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-
+uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
@@ -12,7 +12,7 @@ float plot(vec2 st, float pct){
 }
 
 void main() {
-	vec2 st = gl_FragCoord.xy/iResolution.xy;
+	vec2 st = gl_FragCoord.xy/u_resolution.xy;
 
     float y = pow(st.x, 1.0);
 

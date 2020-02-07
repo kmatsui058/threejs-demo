@@ -13,7 +13,7 @@ float plot(vec2 st, float pct){
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/iResolution.xy;
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
 
     // Step will return 0.0 unless the value is over 0.5,
     // in that case it will return 1.0

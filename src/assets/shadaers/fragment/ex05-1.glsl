@@ -1,7 +1,8 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-
+uniform vec2 u_resolution;
+uniform float u_time;
 #define PI 3.14159265359
 
 float plot(vec2 st, float pct){
@@ -10,8 +11,8 @@ float plot(vec2 st, float pct){
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/iResolution.xy;
-    float x = st.x + iTime;
+    vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    float x = st.x + u_time;
 
     // Smooth interpolation between 0.1 and 0.9
     float y = sin(x);
