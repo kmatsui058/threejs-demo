@@ -11,6 +11,7 @@ class FrontConfig {
   set useLocalStorage (value: boolean) {
     window.localStorage.useLocalStorage = value ? 'on' : 'off'
   }
+
   get useLocalStorage (): boolean {
     const restoredValue = window.localStorage.useLocalStorage
     return restoredValue === 'on'

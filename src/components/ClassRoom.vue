@@ -14,52 +14,57 @@ const refCanvas = 'canvas'
 
 @Component
 export default class ClassRoom extends Vue {
-  @Ref(refCanvas) readonly canvas!: HTMLCanvasElement | undefined
-  refCanvas = refCanvas
-  createdPromise: Promise<void> | null = null
-  loader = new GLTFLoader()
-  gltf: null | GLTF = null
+  @Ref(refCanvas) readonly canvas!: HTMLCanvasElement | undefined;
+  refCanvas = refCanvas;
+  createdPromise: Promise<void> | null = null;
+  loader = new GLTFLoader();
+  gltf: null | GLTF = null;
   scene = new THREE.Scene();
-  renderer: THREE.WebGLRenderer | null = null
-  camera = new THREE.PerspectiveCamera()
-  light = new THREE.DirectionalLight(0xFFFFFF)
-  controls: OrbitControls | null = null
+  renderer: THREE.WebGLRenderer | null = null;
+  camera = new THREE.PerspectiveCamera();
+  light = new THREE.DirectionalLight(0xffffff);
+  controls: OrbitControls | null = null;
   get width (): number {
     if (this.canvas) {
       return this.canvas.getBoundingClientRect().width
     }
     return 0
   }
+
   get height (): number {
     if (this.canvas) {
       return this.canvas.getBoundingClientRect().height
     }
     return 0
   }
+
   async created () {
     console.log('created')
     console.log(this.canvas)
-    this.createdPromise = new Promise((resolve: (value?:any)=>void, reject: (reason?:any)=>void) => {
-      this.loader.load(
-        '/gltf/Office_chair_scene_edit.glb',
-        gltf => {
-          console.log('gltf load succeeded')
-          console.log(gltf)
-          this.gltf = gltf
-          resolve()
-        },
-        event => {
-          console.warn(event)
-          console.log('gltf load on progress')
-        },
-        err => {
-          console.warn(err)
-          console.log('gltf load failed')
-          reject(err)
-        }
-      )
-    })
+    this.createdPromise = new Promise(
+      (resolve: (value?: any) => void, reject: (reason?: any) => void) => {
+        this.loader.load(
+          '/gltf/Office_chair_scene_edit.glb',
+          gltf => {
+            console.log('gltf load succeeded')
+            console.log(gltf)
+            this.gltf = gltf
+            resolve()
+          },
+          event => {
+            console.warn(event)
+            console.log('gltf load on progress')
+          },
+          err => {
+            console.warn(err)
+            console.log('gltf load failed')
+            reject(err)
+          }
+        )
+      }
+    )
   }
+
   mounted () {
     const onfulfilled = () => {
       console.log('start mounted')
@@ -77,7 +82,6 @@ export default class ClassRoom extends Vue {
       })
       this.renderer.setPixelRatio(1)
       this.renderer.setSize(this.width, this.height)
-      this.renderer.gammaOutput = true
       this.renderer.gammaFactor = 2.2
       this.camera.aspect = this.width / this.height
       this.camera.position.set(0, 1, 1)
@@ -89,14 +93,13 @@ export default class ClassRoom extends Vue {
       this.tick()
     }
     if (this.createdPromise) {
-      this.createdPromise
-        .then(onfulfilled)
-        .catch(err => {
-          console.warn(err)
-          console.log('createdPromise was rejected')
-        })
+      this.createdPromise.then(onfulfilled).catch(err => {
+        console.warn(err)
+        console.log('createdPromise was rejected')
+      })
     }
   }
+
   tick () {
     if (!this.controls || !this.renderer) {
       console.warn('unexpected data state')
