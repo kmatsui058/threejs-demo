@@ -82,6 +82,7 @@ export default class ClassRoom extends Vue {
       })
       this.renderer.setPixelRatio(1)
       this.renderer.setSize(this.width, this.height)
+      this.renderer.setClearColor(0xf8f8f8)
       this.renderer.gammaFactor = 2.2
       this.camera.aspect = this.width / this.height
       this.camera.position.set(0, 1, 1)
