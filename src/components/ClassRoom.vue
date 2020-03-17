@@ -115,8 +115,15 @@ export default class ClassRoom extends Vue {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.classroom {
+  object-fit: cover;
+  overflow: hidden;
+  height: 800px;
+  display: flex;
+  align-items: center;
+}
 canvas {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vw;
 }
 </style>
