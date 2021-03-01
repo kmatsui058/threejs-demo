@@ -31,7 +31,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "postprocessing": "^6.12.2",
     "stats.js": "^0.17.0",
-    "three": "^0.114.0",
+    "three": "^0.125.0",
     "three-addons": "^1.2.0",
     "three-obj-mtl-loader": "^1.0.3",
     "three-orbitcontrols": "^2.110.3",
